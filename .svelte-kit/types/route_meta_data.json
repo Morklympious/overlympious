@@ -1,0 +1,6 @@
+{
+	"/": [
+		"src/routes/+page.js"
+	],
+	"/stream-starting": []
+}
