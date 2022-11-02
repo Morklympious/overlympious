@@ -23,6 +23,9 @@
 
 <main class="container">
     <div class="inner">
+        <header class="header">
+            <h1>STARTING SOON</h1>
+        </header>
         <footer class="footer">
             <div class="loader">
                 <Loader />
@@ -76,7 +79,7 @@
 
     display: grid;
     grid-template:
-        "none none none none" 1fr
+        "header header header header" 1fr
         "none none none none" 1fr
         "none none none none" 1fr
         "footer footer footer footer" 12vh / 1fr 1fr 1fr 1fr;
@@ -84,12 +87,18 @@
     position: relative;
 
     z-index: 1;
+
+    padding: 1rem;
+}
+
+.header {
+    font-size: 3rem;
+    grid-area: header;
 }
 
 .footer {
     display: flex;
     align-items: center;
-    padding: 1rem;
     font-size: 1.5rem;
     grid-area: footer;
 }
