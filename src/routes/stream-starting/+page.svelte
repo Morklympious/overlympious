@@ -68,7 +68,7 @@
     color: white;
 
     
-    background-image: url(assets/brick-2.jpg);
+    background-image: url("assets/brick.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
