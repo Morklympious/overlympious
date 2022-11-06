@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { redirect } from '@sveltejs/kit';
+import { redirect } from "@sveltejs/kit";
  
 /** */
 export function load() {
-    throw redirect(307, '/stream-starting');
+    throw redirect(307, "/stream-starting");
 }

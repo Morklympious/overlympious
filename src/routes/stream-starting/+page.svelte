@@ -2,33 +2,34 @@
     import { onMount, tick } from "svelte";
     import Logo from "components/logo/logo.svelte";
     import NeonSign from "components/neon-sign/neon-sign.svelte";
-    import Rain from "components/weather/rain/rain.svelte";
 
     import statuses from "./statuses.js";
-    import random from "utilities/random.js";
+    import random from "shared/utilities/random.js";
+    import Rain from "components/weather/rain/rain.svelte";
 
-    const sample = (collection) => collection[random([0, collection.length - 1])]
+    const sample = (collection) => collection[random([ 0, collection.length - 1 ])];
 
     let message = null;
     let animating = false;
 
     const MESSAGE_DURATION_SECONDS = 20;
+    const NEON_SIGN_TEXT = "MORKLYMPIOUS";
 
     const go = async () => {
-		message = await Promise.resolve(sample(statuses));
-		await tick();
-		requestAnimationFrame(() => (animating = true));
- 	}
+        message = await Promise.resolve(sample(statuses));
+        await tick();
+        requestAnimationFrame(() => (animating = true));
+    };
 
     const ungo = async () => {
         await tick();
         requestAnimationFrame(() => {
             animating = false;
             requestAnimationFrame(go);
-        })
-    }
+        });
+    };
 
-    onMount(go)
+    onMount(go);
 </script>
 
 <main 
@@ -37,8 +38,8 @@
 >
     <Rain />
     <div class="inner">
-        <header class="header">
-            <NeonSign text="BLEEDECEMBER"/>
+        <header class="neon-sign">
+            <NeonSign text="{NEON_SIGN_TEXT}"/>
         </header>
         <div class="flavor">
             <div class="starting" > 
@@ -60,6 +61,7 @@
 </main>
 
 <style>
+
 .container {
     background-color: var(--color-background);
 
@@ -96,13 +98,15 @@
     padding: 1rem;
 }
 
-.header {
-    font-size: 6rem;
+.neon-sign {
+    
     grid-area: header;
+    font-size: 4.5vw;
 
     display: flex;
     justify-content: center;
     align-items: center;
+    align-self: flex-end;
 }
 
 .flavor {
@@ -110,7 +114,7 @@
 }
 
 .starting {
-    font-size: 2.5em;
+    font-size: 2.5vw;
     text-align: center;
 }
 

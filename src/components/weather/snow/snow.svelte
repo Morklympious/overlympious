@@ -8,11 +8,18 @@
 <div class="container">
     {#each { length : 100 } as nothing, index}
         <div 
-            class="drop"
+            class="flake"
             style:--offset="{index}%"
-            style:--delay="{random([ 0, 0.75 ], { floor : false })}s"
+            style:--delay="{random([ 0, 5 ], { floor : false })}s"
         />
     {/each}
+    {#each { length : 100 } as nothing, index}
+    <div 
+        class="flake"
+        style:--offset="{index}%"
+        style:--delay="{random([ 0, 5 ], { floor : false })}s"
+    />
+{/each}
 </div>
 
 <style>
@@ -22,17 +29,18 @@
         position: fixed;
     }
 
-    .drop {
+    .flake {
         position: absolute;
         left: var(--offset);
         top: -10vh;
 
-        width: 1px;
-        height: 10vh;
+        width: 1vw;
+        border-radius: 0.5rem;
+        height:  1rem;
 
         background: white;
 
-        animation: drop 1s linear infinite;
+        animation: drop 5s linear infinite;
         animation-delay: var(--delay);
 
         opacity: 0.4;
@@ -43,7 +51,7 @@
             transform: translateY(-10vh);
         }
         75% {
-            transform: translateY(100vh);
+            transform: translateY(120vh);
         }
         100% {
             transform: translateY(120vh);

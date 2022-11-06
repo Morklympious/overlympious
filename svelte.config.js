@@ -1,19 +1,20 @@
-import adapter from '@sveltejs/adapter-netlify';
+import adapter from "@sveltejs/adapter-netlify";
 import path from "path";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
-		adapter: adapter(),
+	kit : {
+		adapter : adapter(),
 
 		files : {
-			appTemplate : "./src/application.html"
+			appTemplate : "./src/application.html",
 		},
 
 		alias : {
-			components: path.resolve("./src/components"),
-			utilities : path.resolve("./src/utilities"),
-		}
+			components : path.resolve("./src/components"),
+			utilities  : path.resolve("./src/utilities"),
+			shared     : path.resolve("./src/shared"),
+		},
 	},
 };
 
