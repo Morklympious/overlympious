@@ -17,8 +17,10 @@
 <style>
 
     .letter {
-        --color-primary: #87c6c4;
-        --color-secondary : #e5f0ef;
+        /* --color-primary: #87c6c4;
+        --color-secondary : #e5f0ef; */
+        --color-primary: red;
+        --color-secondary: pink;
 
         text-shadow: 
             0rem 0.4rem 0.01rem var(--color-primary),

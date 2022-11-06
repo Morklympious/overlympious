@@ -38,7 +38,7 @@
     <Rain />
     <div class="inner">
         <header class="header">
-            <NeonSign text="MORKLYMPIOUS"/>
+            <NeonSign text="BLEEDECEMBER"/>
         </header>
         <div class="flavor">
             <div class="starting" > 
