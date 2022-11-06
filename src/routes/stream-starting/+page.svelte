@@ -31,7 +31,10 @@
     onMount(go)
 </script>
 
-<main class="container">
+<main 
+    class="container"
+    style:background-image="url(assets/brick.jpg)"
+>
     <Rain />
     <div class="inner">
         <header class="header">
@@ -60,15 +63,11 @@
 .container {
     background-color: var(--color-background);
 
-    padding: 1rem;
-
     font-family: "FjallaOne";
 
     height: 100%;
     color: white;
 
-    
-    background-image: url("assets/brick.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
