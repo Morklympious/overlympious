@@ -1,11 +1,13 @@
 <script>
     import { onMount, tick } from "svelte";
-    import Loader from "components/loader/loader.svelte";
     import Logo from "components/logo/logo.svelte";
+    import NeonSign from "components/neon-sign/neon-sign.svelte";
+    import Rain from "components/weather/rain/rain.svelte";
 
     import statuses from "./statuses.js";
+    import random from "utilities/random.js";
 
-    const sample = (collection) => collection[Math.floor(Math.random() * (collection.length))]
+    const sample = (collection) => collection[random([0, collection.length - 1])]
 
     let message = null;
     let animating = false;
@@ -18,35 +20,35 @@
 		requestAnimationFrame(() => (animating = true));
  	}
 
+    const ungo = async () => {
+        await tick();
+        requestAnimationFrame(() => {
+            animating = false;
+            requestAnimationFrame(go);
+        })
+    }
+
     onMount(go)
 </script>
 
 <main class="container">
+    <Rain />
     <div class="inner">
         <header class="header">
-            <h1>STARTING SOON</h1>
+            <NeonSign text="MORKLYMPIOUS"/>
         </header>
-        <footer class="footer">
-            <div class="loader">
-                <Loader />
-            </div>
+        <div class="flavor">
             <div class="starting" > 
                 <span
                     class="message"
                     data-animating={animating}
                     style:--message-duration="{MESSAGE_DURATION_SECONDS}s"
-                    on:animationend={async () => {
-                        await tick();
-                        requestAnimationFrame(() => {
-                            animating = false;
-                            requestAnimationFrame(go);
-                        })
-                    }}
+                    on:animationend={ungo}
                 > 
                     {message}
                 </span> 
             </div>
-        </footer>
+        </div>
     </div>
     
     <div class="logo">
@@ -64,10 +66,14 @@
 
     height: 100%;
     color: white;
+
+    
+    background-image: url(assets/brick-2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .inner {
-    border: 0.5rem solid white;
     height: 100%;
 
     height: 100%;
@@ -79,10 +85,10 @@
 
     display: grid;
     grid-template:
-        "header header header header" 1fr
-        "none none none none" 1fr
-        "none none none none" 1fr
-        "footer footer footer footer" 12vh / 1fr 1fr 1fr 1fr;
+        ". . . . " 1fr
+        ". header header ." 1fr
+        "flavor flavor flavor flavor" 1fr
+        ". . . ." 12vh / 1fr 1fr 1fr 1fr;
 
     position: relative;
 
@@ -92,19 +98,20 @@
 }
 
 .header {
-    font-size: 3rem;
+    font-size: 6rem;
     grid-area: header;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.footer {
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    grid-area: footer;
+.flavor {
+    grid-area: flavor;
 }
 
 .starting {
-    font-size: 2em;
+    font-size: 2.5em;
     text-align: center;
 }
 
@@ -116,14 +123,9 @@
     opacity: 0;
 }
 
-
-.loader {
-    margin-right: 1rem;
-}
-
 .logo {
     position: absolute;
-    opacity: 0.05;
+    opacity: 0.1;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -132,14 +134,12 @@
 
 
 @keyframes fader {
-		0%, 100% {
-			opacity: 0;
-		}
-		
-		15%, 85% { 
-			opacity: 1
-		}
-	}
-
-
+    0%, 100% {
+        opacity: 0;
+    }
+    
+    15%, 85% { 
+        opacity: 1
+    }
+}
 </style>

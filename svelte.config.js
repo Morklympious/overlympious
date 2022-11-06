@@ -1,4 +1,5 @@
 import adapter from '@sveltejs/adapter-netlify';
+import path from "path";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -7,6 +8,11 @@ const config = {
 
 		files : {
 			appTemplate : "./src/application.html"
+		},
+
+		alias : {
+			components: path.resolve("./src/components"),
+			utilities : path.resolve("./src/utilities"),
 		}
 	},
 };
