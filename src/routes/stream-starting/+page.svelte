@@ -1,31 +1,14 @@
-<script>
-    import { onMount, tick } from "svelte";
-    import random from "just-random";
-    
+<script>    
     import statuses from "./statuses.js";
     
     import Logo from "components/logo/logo.svelte";
     import NeonSign from "components/neon-sign/neon-sign.svelte";
     import Rain from "components/weather/rain/rain.svelte";
     import BrickWall from "components/backdrops/brick-wall.svelte";
+    import Cycler from "components/cycler/cycler.svelte";
 
-
-    let message = null;
-    let animating = false;
-
-    const MESSAGE_DURATION_SECONDS = 20;
     const NEON_SIGN_TEXT = "MORKLYMPIOUS";
-
-    const go = async () => {
-        message = await Promise.resolve(random(statuses));
-        await tick();
-        requestAnimationFrame(() => (animating = true));
-    };
-
-    onMount(go);
-
 </script>
-
 
 <BrickWall>
     <Rain />
@@ -35,19 +18,7 @@
         </header>
         <div class="flavor">
             <div class="starting" > 
-                <span
-                    class="message"
-                    data-animating={animating}
-                    style:--message-duration="{MESSAGE_DURATION_SECONDS}s"
-                    on:animationend={() => {
-                        requestAnimationFrame(() => {
-                            animating = false;
-                            requestAnimationFrame(go);
-                        });
-                    }}
-                > 
-                    {message}
-                </span> 
+                <Cycler data="{statuses}" />
             </div>
         </div>
 
