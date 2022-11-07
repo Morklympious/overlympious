@@ -5,15 +5,12 @@
 
     // Given a collection of items, choose one and display it. and that's it.
     export let data = [];
-
-    let candidate = null;
-    let animating = false;
-    
+    export let candidate = null;
     export let duration = 20;
-
+    
+    let animating = false;
     const cycle = async () => {
         candidate = await Promise.resolve(random(data));
-        console.log({ candidate, data });
         await tick();
         requestAnimationFrame(() => (animating = true));
     };
@@ -35,7 +32,7 @@
                 });
             }}
         >
-            {candidate}
+            <slot {candidate} />
         </div>
     {/if}
 </div>

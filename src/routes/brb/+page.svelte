@@ -8,6 +8,10 @@
         <div class="neon-sign">
             <NeonSign text="BE RIGHT BACK" />
         </div>
+
+        <div class="frame swing">
+
+        </div>
     </div>
 </BrickWall>
 
@@ -39,9 +43,32 @@
     color: #F7F4EA;
 }
 
-    
-    .neon-sign {
-        font-size: 3vw;
-        grid-area: neon;
-    }
+.neon-sign {
+    font-size: 3vw;
+    grid-area: neon;
+}
+
+.frame {
+    width: 20rem;
+    height: 30rem;
+
+    background: red;
+
+    /* border: 1rem solid white; */
+    background-image: url("https://via.placeholder.com/300");
+
+}
+
+
+@keyframes swing {
+    0% { transform: rotate(3deg); }
+    100% { transform: rotate(-3deg); }
+}
+
+
+.swing {
+    animation: swing ease-in-out 3s infinite alternate;
+    transform-origin: center -20px;    
+}
+
 </style>

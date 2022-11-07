@@ -18,7 +18,9 @@
         </header>
         <div class="flavor">
             <div class="starting" > 
-                <Cycler data="{statuses}" />
+                <Cycler data="{statuses}" let:candidate={yo}>
+                  {yo}
+                </Cycler>
             </div>
         </div>
 
