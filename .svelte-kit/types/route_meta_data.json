@@ -3,5 +3,6 @@
 		"src/routes/+page.js"
 	],
 	"/stream-starting": [],
-	"/alleyway": []
+	"/alleyway": [],
+	"/brb": []
 }

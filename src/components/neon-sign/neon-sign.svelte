@@ -1,6 +1,8 @@
 <script>
+    import random from "shared/utilities/random";
+
     export let text = "";
-    
+
     $: split = text.split("");
 </script>
 
@@ -8,19 +10,22 @@
     {#each split as character}
         <span 
             class="letter flicker"
-            data-flickering="{Math.floor(Math.random() * 10) > 6}"
-            style:--duration="{Math.floor(Math.random() * 20)}s"
-            style:--delay="{Math.floor(Math.random() * 3)}s"
+            data-flickering="{random([ 0, 10 ], { floor : false }) > 6}"
+            style:--duration="{random([ 0, 20 ], { floor : false })}s"
+            style:--delay="{random([ 0, 3 ])}s"
         >{character}</span>
     {/each}
     </h1>
 <style>
 
     .letter {
+        --color-text: #fff;
         --color-primary: #87c6c4;
         --color-secondary : #e5f0ef;
         /* --color-primary: red;
         --color-secondary: pink; */
+
+        color: var(--color-text);
 
         text-shadow: 
             0rem 0.4rem 0.01rem var(--color-primary),

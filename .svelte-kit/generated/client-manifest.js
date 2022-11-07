@@ -4,14 +4,16 @@ export { matchers } from './client-matchers.js';
 	() => import('./nodes/1'),
 	() => import('./nodes/2'),
 	() => import('./nodes/3'),
-	() => import('./nodes/4')];
+	() => import('./nodes/4'),
+	() => import('./nodes/5')];
 
 			export const server_loads = [];
 
 			export const dictionary = {
 	"/": [2],
 	"/alleyway": [3],
-	"/stream-starting": [4]
+	"/brb": [4],
+	"/stream-starting": [5]
 };
 
 			export const hooks = {

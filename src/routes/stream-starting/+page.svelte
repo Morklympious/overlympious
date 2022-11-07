@@ -1,13 +1,14 @@
 <script>
     import { onMount, tick } from "svelte";
+    import random from "just-random";
+    
+    import statuses from "./statuses.js";
+    
     import Logo from "components/logo/logo.svelte";
     import NeonSign from "components/neon-sign/neon-sign.svelte";
-
-    import statuses from "./statuses.js";
-    import random from "shared/utilities/random.js";
     import Rain from "components/weather/rain/rain.svelte";
+    import BrickWall from "components/backdrops/brick-wall.svelte";
 
-    const sample = (collection) => collection[random([ 0, collection.length - 1 ])];
 
     let message = null;
     let animating = false;
@@ -16,26 +17,17 @@
     const NEON_SIGN_TEXT = "MORKLYMPIOUS";
 
     const go = async () => {
-        message = await Promise.resolve(sample(statuses));
+        message = await Promise.resolve(random(statuses));
         await tick();
         requestAnimationFrame(() => (animating = true));
     };
 
-    const ungo = async () => {
-        await tick();
-        requestAnimationFrame(() => {
-            animating = false;
-            requestAnimationFrame(go);
-        });
-    };
-
     onMount(go);
+
 </script>
 
-<main 
-    class="container"
-    style:background-image="url(assets/brick.jpg)"
->
+
+<BrickWall>
     <Rain />
     <div class="inner">
         <header class="neon-sign">
@@ -47,33 +39,29 @@
                     class="message"
                     data-animating={animating}
                     style:--message-duration="{MESSAGE_DURATION_SECONDS}s"
-                    on:animationend={ungo}
+                    on:animationend={() => {
+                        requestAnimationFrame(() => {
+                            animating = false;
+                            requestAnimationFrame(go);
+                        });
+                    }}
                 > 
                     {message}
                 </span> 
             </div>
+        </div>
+
+        <div class="corner">
+            <div class="graffiti">☠ KROM WUZ HERE</div>
         </div>
     </div>
     
     <div class="logo">
         <Logo />
     </div>
-</main>
+</BrickWall>
 
 <style>
-
-.container {
-    background-color: var(--color-background);
-
-    font-family: "FjallaOne";
-
-    height: 100%;
-    color: white;
-
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
 .inner {
     height: 100%;
 
@@ -89,13 +77,28 @@
         ". . . . " 1fr
         ". header header ." 1fr
         "flavor flavor flavor flavor" 1fr
-        ". . . ." 12vh / 1fr 1fr 1fr 1fr;
+        "corner . . ." 12vh / 1fr 1fr 1fr 1fr;
 
     position: relative;
 
     z-index: 1;
 
     padding: 1rem;
+
+    color: #F7F4EA;
+}
+
+.corner {
+    grid-area: corner;
+    
+}
+
+.graffiti {
+    font-family: 'Gochi Hand', cursive;
+    font-size: 2.7rem;
+    transform: rotate(-6deg) translate(20%, 0px);
+    opacity: 0.2;
+    color: #1fe707;
 }
 
 .neon-sign {
@@ -114,7 +117,7 @@
 }
 
 .starting {
-    font-size: 2.5vw;
+    font-size: 2.2vw;
     text-align: center;
 }
 
