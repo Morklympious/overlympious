@@ -19,6 +19,12 @@
 			],
 			"shared/*": [
 				"src/shared/*"
+			],
+			"assets": [
+				"static/assets"
+			],
+			"assets/*": [
+				"static/assets/*"
 			]
 		},
 		"rootDirs": [

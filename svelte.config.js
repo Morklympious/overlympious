@@ -14,6 +14,7 @@ const config = {
 			components : path.resolve("./src/components"),
 			utilities  : path.resolve("./src/utilities"),
 			shared     : path.resolve("./src/shared"),
+			assets     : path.resolve("./static/assets"),
 		},
 	},
 };

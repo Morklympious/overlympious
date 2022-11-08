@@ -11,6 +11,7 @@
 		"lint": "eslint ."
 	},
 	"devDependencies": {
+		"@shyrii/web-audio-effects": "^1.0.4",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-netlify": "^1.0.0-next.83",
 		"@sveltejs/kit": "next",
@@ -20,6 +21,7 @@
 		"eslint-plugin-svelte3": "^4.0.0",
 		"just-random": "^3.1.1",
 		"particles.js": "^2.0.0",
+		"soundbank-reverb": "^1.1.2",
 		"svelte": "^3.44.0",
 		"svelte-check": "^2.7.1",
 		"typescript": "^4.7.4",
