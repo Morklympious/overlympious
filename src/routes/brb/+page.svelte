@@ -9,18 +9,21 @@
 
     let video;
     const source = anything();
+    let context;
 
-    // TODO: put this in its own thing probably lol.
-    onMount(() => {
+    const gogogo = () => {
         if(!video) {
             return;
         }
 
-        const context = new AudioContext();
+        requestAnimationFrame(() => (video.muted = false));
+
+        context = new AudioContext();
         const source = context.createMediaElementSource(video);
 
-        const compressor = context.createDynamicsCompressor();
+        context.resume();
 
+        const compressor = context.createDynamicsCompressor();
 
         compressor.threshold.setValueAtTime(-60, context.currentTime);
         compressor.knee.setValueAtTime(40, context.currentTime);
@@ -48,7 +51,13 @@
         reverb.connect(lowpass);
         lowpass.connect(compressor);
         compressor.connect(context.destination);
-    });
+
+        video.setAttribute("autoplay", true);
+    };
+
+
+    // TODO: put this in its own thing probably lol.
+    onMount(gogogo);
 
 </script>
 
@@ -59,21 +68,10 @@
         </div>
 
         <div class="frames">
-            {#each { length : 2 } as nothing, index}
-            <div 
-                class="frame"
-            >   
-                <!-- NOTE: Temporary. -->
-                <!-- <img src="assets/art/jackson-morklympious.png" width="100%" height="100%"/>
-                 -->
-
-            </div>
-            {/each}
-
             {#if source}
             <div class="video crt">
                 <!-- svelte-ignore a11y-media-has-caption -->
-                <video class="video" controls autoplay bind:this={video}>
+                <video class="video" on:click={() => context.resume()} autoplay controls bind:this={video}>
                     <source class="crt" src="{anything()}" />
                 </video>
             </div>
@@ -121,29 +119,6 @@
     align-items: center;
 
     grid-area: frames;
-}
-
-.frame {
-    width: 20rem;
-    height: 30rem;
-
-    border: 1rem solid white;
-
-    margin:  0 4rem;
-
-    box-shadow: 0.2rem 0.2rem 3rem #aaa;
-
-    /* border: 1rem solid white; */
-    background-image: url("https://via.placeholder.com/300");
-}
-
-.frame:first-of-type {
-    transform: rotate(-2deg);
-}
-
-.frame:nth-of-type(2) {
-    transform: translate(1rem, -1rem);
-
 }
 
 .video {
