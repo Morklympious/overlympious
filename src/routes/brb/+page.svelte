@@ -4,15 +4,15 @@
 
     import NeonSign from "components/neon-sign/neon-sign.svelte";
     import BrickWall from "components/backdrops/brick-wall.svelte";
-    import videos, { anything } from "./videos.js";
+    import { anything } from "./videos.js";
 
 
     let video;
-    const source = anything();
+    let source = anything();
     let context;
 
     const gogogo = () => {
-        if(!video) {
+        if(!video || !window.obsstudio) {
             return;
         }
 
@@ -51,8 +51,6 @@
         reverb.connect(lowpass);
         lowpass.connect(compressor);
         compressor.connect(context.destination);
-
-        video.setAttribute("autoplay", true);
     };
 
 
@@ -71,7 +69,7 @@
             {#if source}
             <div class="video crt">
                 <!-- svelte-ignore a11y-media-has-caption -->
-                <video class="video" on:click={() => context.resume()} autoplay controls bind:this={video}>
+                <video class="video" on:ended={() => (source = anything())} autoplay controls bind:this={video}>
                     <source class="crt" src="{anything()}" />
                 </video>
             </div>
@@ -79,9 +77,12 @@
         </div>
 
     </div>
+
+
 </BrickWall>
 
 <style>
+
 .inner {
     height: 100%;
 
