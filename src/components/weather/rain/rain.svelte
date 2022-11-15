@@ -3,14 +3,19 @@
 
     import random from "shared/utilities/random.js";
 
+    const drops = Array.from(Array(100), (nothing, index) => ({
+        index,
+        delay : random([ 0, 0.75 ], { floor : false }),
+    }));
+
 </script>
 
 <div class="container">
-    {#each { length : 100 } as nothing, index}
+    {#each drops as { index, delay }}
         <div 
             class="drop"
             style:--offset="{index}%"
-            style:--delay="{random([ 0, 0.75 ], { floor : false })}s"
+            style:--delay="{delay}s"
         />
     {/each}
 </div>

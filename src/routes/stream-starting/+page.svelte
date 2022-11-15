@@ -1,11 +1,21 @@
 <script>    
     import statuses from "./statuses.js";
+
+    import range from "just-random-integer";
+    import random from "just-random";
     
     import Logo from "components/logo/logo.svelte";
     import NeonSign from "components/neon-sign/neon-sign.svelte";
     import Rain from "components/weather/rain/rain.svelte";
     import BrickWall from "components/backdrops/brick-wall.svelte";
     import Cycler from "components/cycler/cycler.svelte";
+
+    import art from "./art.js";
+
+    const place = (start, end) => ({
+        x : range(start, end),
+        y : range(-300, 0),
+    });
 
     const NEON_SIGN_TEXT = "MORKLYMPIOUS";
 </script>
@@ -18,14 +28,25 @@
         </header>
         <div class="flavor">
             <div class="starting" > 
-                <Cycler data="{statuses}" let:candidate={yo}>
-                  {yo}
+                <Cycler data="{statuses}" let:candidate>
+                  {candidate}
                 </Cycler>
             </div>
         </div>
 
-        <div class="corner">
-            <div class="graffiti">☠ KROM WUZ HERE</div>
+        <div class="lower-third">
+            {#each [[ 0, 400 ], [ 400, 700 ], [ 800, 1100 ], [ 1200, 1500 ], [ 1600, 1920 ]] as [ start, end ], index}
+            {@const dimensions = place(start, end)}
+            <img 
+                alt="thanks, svelte"
+                class="art" 
+                src="{random(art)}" 
+                style:--x="{dimensions.x}px"
+                style:--y="{dimensions.y}px" 
+                style:--scale="{range(1, 2)}"
+                style:--rotate="{range(-45, 45)}deg"
+            />
+            {/each}
         </div>
     </div>
     
@@ -50,7 +71,7 @@
         ". . . . " 1fr
         ". header header ." 1fr
         "flavor flavor flavor flavor" 1fr
-        "corner . . ." 12vh / 1fr 1fr 1fr 1fr;
+        ". . . ." 12vh / 1fr 1fr 1fr 1fr;
 
     position: relative;
 
@@ -61,8 +82,9 @@
     color: #F7F4EA;
 }
 
-.corner {
-    grid-area: corner;
+.lower-third {
+    grid-area: g;
+    display: flex;
     
 }
 
@@ -83,6 +105,20 @@
     justify-content: center;
     align-items: center;
     align-self: flex-end;
+
+    /** Neon sign: SUPER PROMINENT */
+    z-index: 5;
+}
+
+.art {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 10rem;
+
+    transform: translate(var(--x), var(--y)) scale(var(--scale)) rotate(var(--rotate, 0deg));
+    opacity: 0.3;
 }
 
 .flavor {
@@ -92,14 +128,6 @@
 .starting {
     font-size: 2.2vw;
     text-align: center;
-}
-
-.message[data-animating="true"] {
-    animation: fader var(--message-duration) 1 forwards;
-}
-
-.message[data-animating="false"] {
-    opacity: 0;
 }
 
 .logo {

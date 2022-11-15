@@ -20,6 +20,7 @@
 		"eslint": "^8.27.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"just-random": "^3.1.1",
+		"just-random-integer": "^4.1.1",
 		"particles.js": "^2.0.0",
 		"soundbank-reverb": "^1.1.2",
 		"svelte": "^3.44.0",

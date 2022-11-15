@@ -2,8 +2,7 @@
     import { onMount, tick } from "svelte";
     import random from "just-random";
 
-
-    // Given a collection of items, choose one and display it. and that's it.
+    // Given a collection of items, choose one and expose it. and that's it.
     export let data = [];
     export let candidate = null;
     export let duration = 20;
