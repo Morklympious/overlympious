@@ -13,7 +13,7 @@ export { matchers } from './client-matchers.js';
 	"/": [2],
 	"/alleyway": [3],
 	"/brb": [4],
-	"/stream-starting": [5]
+	"/start": [5]
 };
 
 			export const hooks = {
