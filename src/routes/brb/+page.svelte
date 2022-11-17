@@ -4,17 +4,23 @@
 
     import NeonSign from "components/neon-sign/neon-sign.svelte";
     import BrickWall from "components/backdrops/brick-wall.svelte";
+    import TelevisionFrame from "components/television-frame/television-frame.svelte";
+
+    import statuses from "./statuses.js";
     import { anything } from "./videos.js";
+    import random from "just-random";
 
 
     let video;
-    let source = anything();
+    let vidsrc = anything();
     let context;
 
     const gogogo = () => {
         if(!video || !window.obsstudio) {
             return;
         }
+
+        vidsrc = anything();
 
         requestAnimationFrame(() => (video.muted = false));
 
@@ -62,17 +68,20 @@
 <BrickWall> 
     <div class="inner">
         <div class="neon-sign">
-            <NeonSign text="BE RIGHT BACK" />
+            <NeonSign text="{random(statuses)}" />
         </div>
 
         <div class="frames">
-            {#if source}
-            <div class="video crt">
+            {#if vidsrc}
+            <TelevisionFrame>
+              <div class="video crt">
                 <!-- svelte-ignore a11y-media-has-caption -->
-                <video class="video" on:ended={() => (source = anything())} autoplay controls bind:this={video}>
+                <video width="640px" class="video" on:ended={() => (gogogo())} autoplay controls bind:this={video}>
                     <source class="crt" src="{anything()}" />
                 </video>
             </div>
+            </TelevisionFrame>
+            
              {/if}
         </div>
 
@@ -123,10 +132,7 @@
 }
 
 .video {
-    position: relative;
-    aspect-ratio: 4 / 3;
-    width: 100%;
-    height: 100%;
+  position: relative;
 }
 
 .crt::before {
@@ -300,7 +306,18 @@
     text-shadow: 2.6208764473832513px 0 1px rgba(0,30,255,0.5), -2.6208764473832513px 0 1px rgba(255,0,80,0.3), 0 0 3px;
   }
 }
+
 .crt {
   animation: textShadow 1.4s infinite;
+  overflow: hidden;
+
+  width: 100%;
+  /* height: 30rem; */
+    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  background: #222;
 }
 </style>
