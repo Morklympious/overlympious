@@ -22,16 +22,14 @@ const chat = readable([], (set) => {
      });
 });
 
+/** A derived store for the most recent chat object */
 const recent = derived(chat, ([ _recent ]) => (_recent ? _recent : { tags : {}, message : "", self : false }));
 
+/** A derived store for the most recent command given */
 const command = derived(recent, ($recent, set) => {
      const { message } = $recent;
 
-     if(!$recent) {
-          return;
-     }
-     
-     if(!message.startsWith(TRIGGER_COMMAND)) {
+     if(!$recent || !message.startsWith(TRIGGER_COMMAND)) {
           return;
      }
 
@@ -43,6 +41,5 @@ const command = derived(recent, ($recent, set) => {
           parameters : rest,
      });
 }, { namespace : null, parameters : [] });
-
 
 export { command, recent, chat };

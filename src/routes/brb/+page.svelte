@@ -1,7 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import echo from "soundbank-reverb";
-
+  
     import NeonSign from "components/neon-sign/neon-sign.svelte";
     import BrickWall from "components/backdrops/brick-wall.svelte";
     import TelevisionFrame from "components/television-frame/television-frame.svelte";
@@ -10,6 +9,8 @@
     import { anything } from "./videos.js";
     import random from "just-random";
 
+    import transform from "shared/utilities/transform-audio";
+
 
     let video;
     let vidsrc = anything();
@@ -17,49 +18,14 @@
 
     const gogogo = () => {
         if(!video) {
-            return;
-        }
-
-        vidsrc = anything();
-        console.log("yo?", video, vidsrc);
-
-        if(!window.obsstudio) {
           return;
         }
 
-        context = new AudioContext();
-        const source = context.createMediaElementSource(video);
+        vidsrc = anything();
 
-        context.resume();
-
-        const compressor = context.createDynamicsCompressor();
-
-        compressor.threshold.setValueAtTime(-60, context.currentTime);
-        compressor.knee.setValueAtTime(40, context.currentTime);
-        compressor.ratio.setValueAtTime(15, context.currentTime);
-        compressor.attack.setValueAtTime(0, context.currentTime);
-        compressor.release.setValueAtTime(0.25, context.currentTime);
-
-        const reverb = echo(context);
-
-        reverb.time = 0.5;
-        reverb.wet.value = 0.8;
-        reverb.dry.value = 1;
-
-        reverb.filterType = "lowpass";
-         reverb.cutoff.value = 4000;
-
-        const lowpass = context.createBiquadFilter();
-
-        lowpass.type = "lowpass";
-        
-        lowpass.frequency.value = 400;
-    
-    
-        source.connect(reverb);
-        reverb.connect(lowpass);
-        lowpass.connect(compressor);
-        compressor.connect(context.destination);
+        if(window.obsstudio) {
+          transform(video);
+        }
 
         video.play();
     };
@@ -67,10 +33,9 @@
 
     // TODO: put this in its own thing probably lol.
     onMount(gogogo);
-
 </script>
 
-<BrickWall> 
+<BrickWall>
     <div class="inner">
         <div class="neon-sign">
             <NeonSign text="{random(statuses)}" />
@@ -82,7 +47,14 @@
               <TelevisionFrame>
                 <div class="video crt">
                   <!-- svelte-ignore a11y-media-has-caption -->
-                  <video src="{vidsrc}" width="640px" class="video" on:ended={() => (gogogo())} autoplay controls bind:this={video} />
+                  <video
+                    bind:this={video}
+                    class="video"
+                    controls
+                    src="{vidsrc}"
+                    width="640px"
+                    on:ended={() => (gogogo())}
+                  />
                 </div>
 
               </TelevisionFrame>

@@ -12,10 +12,10 @@
 
 <div class="container">
     {#each drops as { index, delay }}
-        <div 
-            class="drop"
+        <div
             style:--offset="{index}%"
             style:--delay="{delay}s"
+            class="drop"
         />
     {/each}
 </div>

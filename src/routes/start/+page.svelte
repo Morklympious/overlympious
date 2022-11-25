@@ -1,16 +1,16 @@
-<script>    
-    import statuses from "./statuses.js";
-
+<script>
     import range from "just-random-integer";
     import random from "just-random";
-    
+    import { fade } from "svelte/transition";
+
     import Logo from "components/logo/logo.svelte";
     import NeonSign from "components/neon-sign/neon-sign.svelte";
     import Rain from "components/weather/rain/rain.svelte";
     import BrickWall from "components/backdrops/brick-wall.svelte";
     import Cycler from "components/cycler/cycler.svelte";
-
+    
     import art from "./art.js";
+    import statuses from "./statuses.js";
 
     const place = (start, end) => ({
         x : range(start, end),
@@ -18,6 +18,7 @@
     });
 
     const NEON_SIGN_TEXT = "MORKLYMPIOUS";
+
 </script>
 
 <BrickWall>
@@ -27,7 +28,7 @@
             <NeonSign text="{NEON_SIGN_TEXT}"/>
         </header>
         <div class="flavor">
-            <div class="starting" > 
+            <div class="starting" >
                 <Cycler data="{statuses}" let:candidate>
                   {candidate}
                 </Cycler>
@@ -37,14 +38,16 @@
         <div class="lower-third">
             {#each [[ 0, 400 ], [ 400, 700 ], [ 800, 1100 ], [ 1200, 1500 ], [ 1600, 1920 ]] as [ start, end ], index}
             {@const dimensions = place(start, end)}
-            <img 
-                alt="thanks, svelte"
-                class="art" 
-                src="{random(art)}" 
+            
+            <img
                 style:--x="{dimensions.x}px"
-                style:--y="{dimensions.y}px" 
+                style:--y="{dimensions.y}px"
                 style:--scale="{range(1, 2)}"
                 style:--rotate="{range(-45, 45)}deg"
+                class="art"
+                alt="thanks, svelte"
+                src="{random(art)}"
+                transition:fade
             />
             {/each}
         </div>
@@ -86,14 +89,6 @@
     grid-area: g;
     display: flex;
     
-}
-
-.graffiti {
-    font-family: 'Gochi Hand', cursive;
-    font-size: 2.7rem;
-    transform: rotate(-6deg) translate(20%, 0px);
-    opacity: 0.2;
-    color: #1fe707;
 }
 
 .neon-sign {
@@ -139,13 +134,12 @@
     z-index: 0;
 }
 
-
 @keyframes fader {
     0%, 100% {
         opacity: 0;
     }
     
-    15%, 85% { 
+    15%, 85% {
         opacity: 1
     }
 }

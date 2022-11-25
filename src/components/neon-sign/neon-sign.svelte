@@ -1,10 +1,11 @@
 <script>
     import { fade } from "svelte/transition";
-    import random from "shared/utilities/random";
     import { onMount } from "svelte";
+    import random from "shared/utilities/random";
+    import { command } from "shared/stores/tmi.js";
+
     import flags from "./internal/flag-hex.js";
     
-    import { command, recent } from "shared/stores/tmi.js";
 
     export let text = "";
 
@@ -24,15 +25,15 @@
 </script>
 
 {#if showing}
-    <h1 in:fade class="neon" data-flag={flag}>
+    <h1 class="neon" data-flag={flag} in:fade>
         {#each split as character, index}
         {@const colors = flags[flag]}
-            <span 
-                class="letter flicker"
-                data-flickering="{random([ 0, 10 ], { floor : false }) > 6}"
+            <span
                 style:--duration="{random([ 0, 20 ], { floor : false })}s"
                 style:--delay="{random([ 0, 3 ])}s"
-                style:--color="{colors ? colors[index % colors.length] : null}">{character}</span>
+                style:--color="{colors ? colors[index % colors.length] : null}"
+                class="letter flicker"
+                data-flickering="{random([ 0, 10 ], { floor : false }) > 6}">{character}</span>
         {/each}
     </h1>
 {/if}
@@ -47,7 +48,7 @@
 
         color: var(--color);
 
-        text-shadow: 
+        text-shadow:
             0rem 0.4rem 0.01rem var(--color-primary),
             0.1rem 0rem 1.5rem var(--color-primary),
             0.2rem 0rem 4.5rem var(--color-primary),
