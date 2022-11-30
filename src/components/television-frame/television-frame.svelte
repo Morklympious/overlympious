@@ -1,6 +1,6 @@
 <div class="container">
     <div class="monitor">
-        <div class="monitorscreen">
+        <div class="screen">
             <slot />
         </div>
     </div>
@@ -9,16 +9,12 @@
 <style>
 .monitor {
 	background: #000;
-	position: relative;
-	border-top: 3px solid #888;
+    position: relative;
+    padding: 1rem 1rem 2rem 1rem;
+    border-radius: 1rem;
 
-	padding: 1rem 1rem 2rem 1rem;
-	border-radius: 10px;
-	border-bottom-left-radius: 50% 2%;
-	border-bottom-right-radius: 50% 2%;
-	transition: margin-right 1s;
-
-	animation: tvflicker 5s infinite alternate;
+    transition: margin-right 1s;
+    animation: tvflicker 5s infinite alternate;
 }
 
 .monitor:after {
@@ -34,13 +30,11 @@
 	box-shadow: 0 0 3px 0 white;
 }
 
-.monitorscreen {
+.screen {
 	position: relative;
 	background-color: #777;
 	background-size: cover;
 	background-position: top center;
-	height: 0;
-	padding-bottom: 56.25%;
 	position: relative;
 	overflow: hidden;
 }

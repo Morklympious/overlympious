@@ -1,5 +1,8 @@
 <script>
     import { onMount } from "svelte";
+    import range from "just-random-integer";
+    import random from "just-random";
+    import { fade } from "svelte/transition";
   
     import NeonSign from "components/neon-sign/neon-sign.svelte";
     import BrickWall from "components/backdrops/brick-wall.svelte";
@@ -7,14 +10,14 @@
 
     import statuses from "./statuses.js";
     import { anything } from "./videos.js";
-    import random from "just-random";
+
+    import art from "./art.js";
 
     import transform from "shared/utilities/transform-audio";
 
 
     let video;
-    let vidsrc = anything();
-    let context;
+    let vidsrc = "";
 
     const gogogo = () => {
         if(!video) {
@@ -28,47 +31,69 @@
         }
 
         video.play();
+        video.setAttribute("autoplay", true);
     };
 
+    const toggle = () => (video.paused ? video.play() : video.pause());
 
     // TODO: put this in its own thing probably lol.
     onMount(gogogo);
+
+    
+    const place = (start, end) => ({
+        x : range(start, end),
+        y : range(-300, 0),
+    });
+
 </script>
 
 <BrickWall>
     <div class="inner">
-        <div class="neon-sign">
-            <NeonSign text="{random(statuses)}" />
+        <div class="heading">
+            <h1> {random(statuses)} </h1>
         </div>
 
         <div class="frames">
-            {#if vidsrc}
-            <div class="television">
+            <div class="television" data-video-exists={Boolean(vidsrc)}>
               <TelevisionFrame>
-                <div class="video crt">
+                <div class="video crt video-container" data-video-exists={Boolean(vidsrc)}>
                   <!-- svelte-ignore a11y-media-has-caption -->
                   <video
                     bind:this={video}
                     class="video"
-                    controls
-                    src="{vidsrc}"
-                    width="640px"
-                    on:ended={() => (gogogo())}
+                    src={vidsrc}
+                    on:ended={() => {
+                      vidsrc = "";
+
+                      setTimeout(gogogo, 2000);
+                    }}
+                    on:click={toggle}
                   />
                 </div>
 
               </TelevisionFrame>
-              <h1 class="note"> MORKLYMPIOUS ENTERTAINMENT NETWORK </h1>
+              <h1 class="note"> <span class="blink">🔴</span> MORKLYMPIOUS ENTERTAINMENT NETWORK </h1>
             </div>
-            {/if}
         </div>
 
+        <div class="posters">
+          <div style:background-image={`url(${random(art)})`} class="frame" transition:fade />
+        </div>
     </div>
-
-
 </BrickWall>
 
 <style>
+.heading {
+  font-size: 7rem;
+  opacity: 0.5;
+  font-size: 3vw;
+  grid-area: neon;
+}
+
+.lower-third {
+  grid-area: lt;
+  position: relative;
+}
 
 .inner {
     height: 100%;
@@ -83,10 +108,10 @@
     display: grid;
 
     grid-template:
-        "neon neon neon . " 1fr
-        "frames frames frames frames" 1fr
-        "frames frames frames frames" 1fr
-        "corner . . ." 12vh / 1fr 1fr 1fr 1fr;
+        "neon neon neon neon " 0.5fr
+        "frames frames p ." 1fr
+        "frames frames p ." 1fr
+        "lt lt lt lt" 12vh / 1fr 1fr 1fr 1fr;
 
     position: relative;
 
@@ -97,32 +122,111 @@
     color: #F7F4EA;
 }
 
-.neon-sign {
-    font-size: 3vw;
-    grid-area: neon;
+.posters {
+  grid-area: p;
+  
+  display: flex;
+  flex-flow: column nowrap;
+  transform: translate(-50%, 0)
+  
 }
+.frame{
+  filter: brightness(0.3);
+
+  width: 100%;
+  flex: 1;
+
+  background-size: 100%;
+  background-position:center;
+  background-repeat: no-repeat;
+  border: 1rem solid white;
+
+  transform: rotate(8deg) translate(50%, 0);
+
+  background-color: #DDD;
+}
+
 
 .frames {
     display: flex;
-    align-items: center;
-    justify-content: center;
     grid-area: frames;
+
+    justify-content: center;
+    align-items: center;
+
+    animation: swing 12s infinite ease-in-out;
+    transform-origin: 50% -200%;
+    z-index: 2;
+}
+
+.frames::before {
+  content: " ";
+  width: 1rem;
+  height: 40rem;
+  background: #222;
+  position: absolute;
+
+  border: 0.2rem solid #444;
+  top: -20rem;
+  left: 50%;
+  z-index: 0;
+
+  border: 4px solid #000;
+}
+
+.video-container[data-video-exists="false"] {
+  background: url("/assets/tv-static.gif");
+
+  background-size: contain;
+  background-position: center;
 }
 
 .video {
   position: relative;
+  opacity: 0.8;
+  width: 50rem;
+  aspect-ratio: 16 / 9;
+}
+
+@keyframes swing {
+  0%, 100% {
+    transform: rotate(1deg)
+  }
+
+  50% {
+    transform: rotate(-1deg)
+  }
 }
 
 .television {
   position: absolute;
+  z-index: 5;
 }
+
+.blink {
+  animation: blink 4s infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
 .note {
+  position: relative;
   text-align: center;
-  opacity: 0.4;
+  
   position: absolute;
-  top: 0;
+  bottom: 1rem;
   left: 0;
   padding: 1.1rem;
+  font-size: 2em;
+  z-index: 1;
 }
 
 .crt::before {
@@ -138,6 +242,8 @@
   background-size: 100% 3px, 3px 100%;
   pointer-events: none;
 }
+
+
 @keyframes flicker {
   0% {
   opacity: 0.27861;
@@ -218,7 +324,6 @@
   pointer-events: none;
   animation: flicker 0.15s infinite;
 }
-
 
 .crt {
   overflow: hidden;

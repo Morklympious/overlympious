@@ -43,8 +43,7 @@
         --color-text: #fff;
         --color-primary: #87c6c4;
         --color-secondary : #e5f0ef;
-        /* --color-primary: red;
-        --color-secondary: pink; */
+        --color-text-shadow: var(--color-primary);
 
         color: var(--color);
 

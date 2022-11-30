@@ -1,10 +1,15 @@
 export default [
-    "BE RIGHT BACK",
-    "ITS TIME TO PISS?",
-    "WELCOME TO THE BRB ZONE",
-    "BACK IN A SECOND",
+    "I WILL BE RIGHT BACK",
+    "ITS PROBABLY TIME TO PISS?",
+    "I WILL BE BACK IN A SECOND",
     "GIVE ME A MINUTE TO KILL GOD",
-    "STAND OUTSIDE FOR A MINUTE",
-    "WAITING TIME",
-    "GET SNACKIES AND SHIT",
+    "STAND OUTSIDE THE CLUB FOR A MINUTE",
+    "ITS MOTHERFUCKING WAITING TIME",
+    "LET ME SNACK UP, ONE SEC.",
+];
+
+const loaders = [
+    "Something",
+    "TBD",
+    "Third thing here",
 ];

@@ -72,7 +72,7 @@
     display: grid;
     grid-template:
         ". . . . " 1fr
-        ". header header ." 1fr
+        "header header header header" 1fr
         "flavor flavor flavor flavor" 1fr
         ". . . ." 12vh / 1fr 1fr 1fr 1fr;
 
@@ -118,6 +118,8 @@
 
 .flavor {
     grid-area: flavor;
+    
+    z-index: 1;
 }
 
 .starting {
