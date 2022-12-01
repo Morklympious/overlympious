@@ -1,10 +1,8 @@
 <script>
     import { onMount } from "svelte";
-    import range from "just-random-integer";
     import random from "just-random";
     import { fade } from "svelte/transition";
   
-    import NeonSign from "components/neon-sign/neon-sign.svelte";
     import BrickWall from "components/backdrops/brick-wall.svelte";
     import TelevisionFrame from "components/television-frame/television-frame.svelte";
 
@@ -31,6 +29,7 @@
         }
 
         video.play();
+        
         video.setAttribute("autoplay", true);
     };
 
@@ -39,11 +38,6 @@
     // TODO: put this in its own thing probably lol.
     onMount(gogogo);
 
-    
-    const place = (start, end) => ({
-        x : range(start, end),
-        y : range(-300, 0),
-    });
 
 </script>
 
@@ -90,11 +84,6 @@
   grid-area: neon;
 }
 
-.lower-third {
-  grid-area: lt;
-  position: relative;
-}
-
 .inner {
     height: 100%;
 
@@ -130,13 +119,14 @@
   transform: translate(-50%, 0)
   
 }
+
 .frame{
   filter: brightness(0.3);
 
   width: 100%;
   flex: 1;
 
-  background-size: 100%;
+  background-size: cover;
   background-position:center;
   background-repeat: no-repeat;
   border: 1rem solid white;
