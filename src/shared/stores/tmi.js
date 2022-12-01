@@ -1,9 +1,8 @@
 import tmi from "tmi.js";
 import { readable, derived, writable } from "svelte/store";
 
-const TRIGGER_COMMAND = "!mork-";
 
-const commandables = new Set([ "flag" ]);
+const commandables = new Set([ "!neon" ]);
 
 const client = new tmi.Client({
 	channels : [ "morklympious" ],
@@ -29,15 +28,19 @@ const recent = derived(chat, ([ _recent ]) => (_recent ? _recent : { tags : {}, 
 const command = derived(recent, ($recent, set) => {
      const { message } = $recent;
 
-     if(!$recent || !message.startsWith(TRIGGER_COMMAND)) {
+     const [ command, ...rest ] = message.split(" ");
+
+     if(!$recent || !commandables.has(command)) {
           return;
      }
 
-     const [ trigger, inputs ] = message.split(TRIGGER_COMMAND);
-     const [ namespace, ...rest ] = inputs.split("-");
+     console.log({
+          namespace  : command.replace("!", ""),
+          parameters : rest,
+     });
 
      set({
-          namespace,
+          namespace  : command.replace("!", ""),
           parameters : rest,
      });
 }, { namespace : null, parameters : [] });

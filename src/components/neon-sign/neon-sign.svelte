@@ -17,7 +17,7 @@
     const flaggify = (type) => (flag = type);
 
     /** TODO: Make namespaced stores that look for a single command!! */
-    $: if($command.namespace === "flag") {
+    $: if($command.namespace === "neon") {
         flaggify(...$command.parameters);
     }
 
@@ -32,6 +32,7 @@
                 style:--duration="{random([ 0, 20 ], { floor : false })}s"
                 style:--delay="{random([ 0, 3 ])}s"
                 style:--color="{colors ? colors[index % colors.length] : null}"
+                style:--color-primary="{flag ? null : `#87c6c4`}"
                 class="letter flicker"
                 data-flickering="{random([ 0, 10 ], { floor : false }) > 6}">{character}</span>
         {/each}
@@ -39,19 +40,19 @@
 {/if}
 <style>
 
+    .neon:not(.neon[data-flag=""]) {
+        --color-text-shadow: white;
+    }
     .letter {
         --color-text: #fff;
-        --color-primary: #87c6c4;
         --color-secondary : #e5f0ef;
-        --color-text-shadow: var(--color-primary);
+        --color-text-shadow: var(var(--color-text-shadow), --color-primary);
 
         color: var(--color);
 
         text-shadow:
             0rem 0.4rem 0.01rem var(--color-primary),
             0.1rem 0rem 1.5rem var(--color-primary),
-            0.2rem 0rem 4.5rem var(--color-primary),
-            0.3rem 0.1rem 12rem var(--color-primary),
             0.2rem 0rem 1rem var(--color-secondary),
             0.2rem 0.3rem 10rem var(--color-secondary)
     }

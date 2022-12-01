@@ -11,7 +11,7 @@ export default (video) => {
 
     compressor.threshold.setValueAtTime(-60, context.currentTime);
     compressor.knee.setValueAtTime(40, context.currentTime);
-    compressor.ratio.setValueAtTime(4, context.currentTime);
+    compressor.ratio.setValueAtTime(6, context.currentTime);
     compressor.attack.setValueAtTime(0, context.currentTime);
     compressor.release.setValueAtTime(0.25, context.currentTime);
 
