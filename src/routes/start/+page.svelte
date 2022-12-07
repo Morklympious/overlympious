@@ -1,6 +1,7 @@
 <script>
     import range from "just-random-integer";
     import random from "just-random";
+    import ordinal from "ordinal";
     import { fade } from "svelte/transition";
 
     import Logo from "components/logo/logo.svelte";
@@ -17,7 +18,8 @@
         y : range(-300, 0),
     });
 
-    const NEON_SIGN_TEXT = "MORKLYMPIOUS";
+
+    const NEON_SIGN_TEXT = new Date().getMonth() === 11 ? `BLEEDECEMBER ${ordinal(new Date().getDate()).toUpperCase()}` : `MORKLYMPIOUS`;
 
 </script>
 

@@ -14,6 +14,7 @@ client.connect();
 const chat = readable([], (set) => {
      const everything = [];
 
+
      client.on("message", (channel, tags, message, self) => {
          everything.unshift({ tags, message, self });
 
@@ -26,18 +27,20 @@ const recent = derived(chat, ([ _recent ]) => (_recent ? _recent : { tags : {}, 
 
 /** A derived store for the most recent command given */
 const command = derived(recent, ($recent, set) => {
-     const { message } = $recent;
+     const { message, tags } = $recent;
+     const { mod, badges } = tags;
 
      const [ command, ...rest ] = message.split(" ");
 
-     if(!$recent || !commandables.has(command)) {
+     const nope = [
+          !$recent,
+          !commandables.has(command),
+          [ mod, Object.is(tags["user-id"], "23829399") ].some(Boolean),
+     ];
+
+     if(nope.every(Boolean)) {
           return;
      }
-
-     console.log({
-          namespace  : command.replace("!", ""),
-          parameters : rest,
-     });
 
      set({
           namespace  : command.replace("!", ""),
