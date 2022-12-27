@@ -11,7 +11,11 @@ const flags = {
     genderqueer : [ "#B77FDD", "#FFFFFF", "#48821E" ],
     genderfluid : [ "#FF76A4", "#FFFFFF", "#C011D7", "#000000", "#2F3CBE" ],
     agender     : [ "#010204", "#BCC4C6", "#E9EDEE", "#B8F483", "#E9EDEE", "#BCC4C6", "#010204" ],
-    none        : [],
+    none        : [ null ],
+
+    // Lol.
+    christmas : [ "#E98FA0", "#87C6C4" ],
+    bleed     : [ "red" ],
 };
 
 export default flags;

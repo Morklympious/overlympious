@@ -117,6 +117,7 @@ vite.config.js.timestamp-*
 .env
 .vercel_build_output
 .svelte-kit
+/.svelte-kit
 .cloudflare
 .pnpm-debug.log
 .netlify

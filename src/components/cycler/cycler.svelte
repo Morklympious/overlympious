@@ -20,10 +20,10 @@
 
 <div class="cycler">
     {#if candidate}
-        <div  
+        <div
+            style:--message-duration="{duration}s"
             class="message"
             data-animating={animating}
-            style:--message-duration="{duration}s"
             on:animationend={() => {
                 requestAnimationFrame(() => {
                     animating = false;
@@ -54,7 +54,7 @@
         opacity: 0;
     }
     
-    15%, 85% { 
+    15%, 85% {
         opacity: 1
     }
 }
