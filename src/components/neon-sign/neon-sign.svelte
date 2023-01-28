@@ -11,7 +11,7 @@
 
     $: split = text.split("");
 
-    let flag = "christmas";
+    let flag = "";
     let showing = false;
     
     const flaggify = (type) => (flag = type);
