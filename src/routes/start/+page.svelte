@@ -6,7 +6,6 @@
 
     import Logo from "components/logo/logo.svelte";
     import NeonSign from "components/neon-sign/neon-sign.svelte";
-    import Rain from "components/weather/rain/rain.svelte";
     import BrickWall from "components/backdrops/brick-wall.svelte";
     import Cycler from "components/cycler/cycler.svelte";
     
@@ -24,7 +23,6 @@
 </script>
 
 <BrickWall>
-    <Rain />
     <div class="inner">
         <header class="neon-sign">
             <NeonSign text="{NEON_SIGN_TEXT}"/>
