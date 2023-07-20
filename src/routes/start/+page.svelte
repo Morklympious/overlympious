@@ -17,6 +17,8 @@
         y : range(-300, 0),
     });
 
+    console.log({ statuses })
+
 
     const NEON_SIGN_TEXT = new Date().getMonth() === 11 ? `BLEEDECEMBER ${ordinal(new Date().getDate()).toUpperCase()}` : `MORKLYMPIOUS`;
 

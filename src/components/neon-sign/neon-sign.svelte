@@ -19,7 +19,6 @@
     /** TODO: Make namespaced stores that look for a single command!! */
     $: if($command.namespace === "neon") {
         flaggify(...$command.parameters);
-        console.log($command.parameters);
     }
 
     onMount(() => requestAnimationFrame(() => ((showing = true))));
