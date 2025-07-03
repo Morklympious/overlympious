@@ -1,4 +1,4 @@
-const art = import.meta.glob("assets/art/graffiti/*.png");
+const art = import.meta.glob("$lib/images/*.png");
 
 const keys = Object.keys(art);
 

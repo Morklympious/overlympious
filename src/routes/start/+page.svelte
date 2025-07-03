@@ -17,11 +17,8 @@
         y : range(-300, 0),
     });
 
-    console.log({ statuses })
-
-
+    console.log({ statuses, art })
     const NEON_SIGN_TEXT = new Date().getMonth() === 11 ? `BLEEDECEMBER ${ordinal(new Date().getDate()).toUpperCase()}` : `MORKLYMPIOUS`;
-
 </script>
 
 <BrickWall>
@@ -64,8 +61,8 @@
 .inner {
     height: 100%;
 
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
 
     display: flex;
     justify-content: flex-end;
@@ -90,18 +87,16 @@
 .lower-third {
     grid-area: g;
     display: flex;
-    
 }
 
 .neon-sign {
-    
     grid-area: header;
-    font-size: 4.5vw;
+    font-size: 16rem;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    align-self: flex-end;
+    align-self: center;
 
     /** Neon sign: SUPER PROMINENT */
     z-index: 5;

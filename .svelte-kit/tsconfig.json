@@ -1,55 +1,47 @@
 {
 	"compilerOptions": {
-		"baseUrl": "..",
 		"paths": {
-			"components": [
-				"src/components"
-			],
-			"components/*": [
-				"src/components/*"
-			],
-			"utilities": [
-				"src/utilities"
-			],
-			"utilities/*": [
-				"src/utilities/*"
-			],
 			"shared": [
-				"src/shared"
+				"../src/shared"
 			],
 			"shared/*": [
-				"src/shared/*"
+				"../src/shared/*"
 			],
-			"assets": [
-				"static/assets"
+			"components": [
+				"../src/components"
 			],
-			"assets/*": [
-				"static/assets/*"
+			"components/*": [
+				"../src/components/*"
+			],
+			"$lib": [
+				"../src/lib"
+			],
+			"$lib/*": [
+				"../src/lib/*"
 			]
 		},
 		"rootDirs": [
 			"..",
 			"./types"
 		],
-		"importsNotUsedAsValues": "error",
+		"verbatimModuleSyntax": true,
 		"isolatedModules": true,
-		"preserveValueImports": true,
 		"lib": [
 			"esnext",
 			"DOM",
 			"DOM.Iterable"
 		],
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"module": "esnext",
+		"noEmit": true,
 		"target": "esnext"
 	},
 	"include": [
 		"ambient.d.ts",
+		"non-ambient.d.ts",
 		"./types/**/$types.d.ts",
+		"../vite.config.js",
 		"../vite.config.ts",
-		"../src/**/*.js",
-		"../src/**/*.ts",
-		"../src/**/*.svelte",
 		"../src/**/*.js",
 		"../src/**/*.ts",
 		"../src/**/*.svelte",
@@ -59,6 +51,11 @@
 	],
 	"exclude": [
 		"../node_modules/**",
-		"./[!ambient.d.ts]**"
+		"../src/service-worker.js",
+		"../src/service-worker/**/*.js",
+		"../src/service-worker.ts",
+		"../src/service-worker/**/*.ts",
+		"../src/service-worker.d.ts",
+		"../src/service-worker/**/*.d.ts"
 	]
 }

@@ -7,9 +7,6 @@
 
 <style>
 .container {
-
-    font-family: "FjallaOne";
-
     height: 100%;
     width: 100%;
 

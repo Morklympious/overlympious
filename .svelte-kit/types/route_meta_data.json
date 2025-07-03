@@ -1,11 +1,13 @@
 {
-	"/": [
-		"src/routes/+page.js"
+	"/": [],
+	"/brothergram": [
+		"src/routes/brothergram/+page.js"
 	],
-	"/stream-starting": [],
-	"/alleyway": [],
-	"/brb": [],
-	"/start": [],
-	"/debug": [],
-	"/bleed": []
+	"/dad-rock": [
+		"src/routes/dad-rock/+page.js"
+	],
+	"/postcard/[type]": [
+		"src/routes/postcard/[type]/+page.js"
+	],
+	"/start": []
 }
