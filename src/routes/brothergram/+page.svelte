@@ -36,10 +36,6 @@
         animation-iteration-count: infinite;
     }
 
-    .path {
-        font-size: var(--size-relative-1)
-    }
-
     .video {
         width: 100%;
         height: 100%;

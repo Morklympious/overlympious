@@ -1,7 +1,5 @@
-const art = import.meta.glob("$lib/images/*.png");
+const art = import.meta.glob("static/assets/art/graffiti/*.png");
 
-const keys = Object.keys(art);
-
-const normalized = keys.map((path) => path.replace("/static", ""));
+const normalized = Object.keys(art).map((path) => path.replace("/static", ""));
 
 export default normalized;

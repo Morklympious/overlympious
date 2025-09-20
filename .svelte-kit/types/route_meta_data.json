@@ -1,5 +1,7 @@
 {
-	"/": [],
+	"/": [
+		"src/routes/+page.server.js"
+	],
 	"/brothergram": [
 		"src/routes/brothergram/+page.js"
 	],

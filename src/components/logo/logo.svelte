@@ -1,3 +1,3 @@
 <div class="container">
-    <img src="assets/brand.png" />
+    <img alt="MY BRAND" src="assets/brand.png" />
 </div>

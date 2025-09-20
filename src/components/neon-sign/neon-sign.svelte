@@ -40,9 +40,14 @@
 {/if}
 <style>
 
+    .neon {
+        font-size: 14rem;
+    }
+
     .neon:not(.neon[data-flag=""]) {
         --color-text-shadow: white;
     }
+
     .letter {
         --color-text: #fff;
         --color-secondary : #e5f0ef;

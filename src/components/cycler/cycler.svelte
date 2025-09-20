@@ -6,12 +6,9 @@
     export let data = [];
     export let candidate = null;
     export let duration = 20;
-
-    console.log({ data })
     
     let animating = false;
     const cycle = async () => {
-        console.log("what")
         candidate = await Promise.resolve(random(data));
         await tick();
         requestAnimationFrame(() => (animating = true));

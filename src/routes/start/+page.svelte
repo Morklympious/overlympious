@@ -17,7 +17,6 @@
         y : range(-300, 0),
     });
 
-    console.log({ statuses, art })
     const NEON_SIGN_TEXT = new Date().getMonth() === 11 ? `BLEEDECEMBER ${ordinal(new Date().getDate()).toUpperCase()}` : `MORKLYMPIOUS`;
 </script>
 
@@ -28,7 +27,7 @@
         </header>
         <div class="flavor">
             <div class="starting" >
-                <Cycler data="{statuses}" let:candidate>
+                <Cycler duration="{10}" data="{statuses}" let:candidate>
                   {candidate}
                 </Cycler>
             </div>
@@ -121,6 +120,8 @@
 
 .starting {
     font-size: 2.2vw;
+    width: 70%;
+    margin: 0 auto;
     text-align: center;
 }
 

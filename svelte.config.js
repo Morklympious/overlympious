@@ -12,6 +12,7 @@ const config = {
 		alias : {
 			shared     : path.resolve("./src/shared"),
 			components : path.resolve("./src/components"),
+			static     : path.resolve("./static"),
 		},
 	},
 };
