@@ -11,6 +11,10 @@ import { random } from "./brothergram.js";
  */
 export const ssr = false;
 
-export const load = ({ params }) => ({ brothergram : random() });
+export const load = ({ params }) => {
+    console.log("RANDOM", random());
+    
+return ({ brothergram : random() });
+};
 
 

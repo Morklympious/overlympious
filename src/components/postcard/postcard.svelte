@@ -1,7 +1,9 @@
 <script>
     import { waapi } from "animejs";
+   
 
-    let { front, back } = $props();
+    
+    let { front, back, done = () => {} } = $props();
 
     /** @type {HTMLElement | Undefined} */
     let root = $state.raw();
@@ -22,7 +24,9 @@
     });
     
     $effect(() => {
-        start().then(jump().then(flip))
+        start().then(jump().then(flip().then(() => {
+            setTimeout(() => done(), 1000);
+        })));
     })
 </script>
 

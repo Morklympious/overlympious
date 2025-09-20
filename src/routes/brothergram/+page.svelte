@@ -1,6 +1,13 @@
 <script>
     import Postcard from "components/postcard/postcard.svelte";
     const { data } = $props();
+
+    const finish = () => {
+        sunnygram.play();
+    }
+
+    /** @type {HTMLVideoElement} */
+    let sunnygram;
 </script>
 
 <style>
@@ -48,12 +55,12 @@
 {/snippet}
 
 {#snippet back()}
-    <video class="video" src="{data.postcard}" controls volume=0.3>
+    <video class="video" src="{data.brothergram}" controls volume=0.3 bind:this={sunnygram}>
         <track kind="captions" />
     </video>
 {/snippet}
 
 <!-- <h1 class="title animation-breathe">BROTHERGRAM</h1> -->
 <div class="page">
-    <Postcard {front} {back}/>
+    <Postcard {front} {back} done={finish}/>
 </div>

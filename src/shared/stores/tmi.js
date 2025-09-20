@@ -19,6 +19,7 @@ const chat = readable([], (set) => {
          everything.unshift({ tags, message, self });
 
          set(everything);
+         console.log({ message, tags, self });
      });
 });
 
